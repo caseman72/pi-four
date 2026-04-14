@@ -1,0 +1,20 @@
+[Unit]
+Description=Shop Door Controller
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=caseman
+EnvironmentFile=/opt/shop-controller/config.env
+EnvironmentFile=/opt/shop-controller/secrets.env
+ExecStart=/opt/shop-controller/venv/bin/python /opt/shop-controller/shop_controller.py
+Restart=always
+RestartSec=10
+StartLimitIntervalSec=60
+StartLimitBurst=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
